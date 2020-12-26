@@ -10,7 +10,7 @@ namespace TicTacToe
     {
         static void Main()
         {
-
+            RandArrays.GetRA(5);
             Console.Write("новая колбаса ");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("ла ла ");
