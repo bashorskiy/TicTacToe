@@ -71,7 +71,7 @@ namespace TicTacToe
             Console.Write("| \n\t\t |");
             Console.Write("цвет O: " + (Console.ForegroundColor = O_currentForeground));
             Console.ResetColor();
-            Console.Write("|\n3. Выйти \n");
+            Console.Write("|\n\n\n3. Выйти \n");
             string choice = Console.ReadLine();
                 if (choice == "1")
                 {

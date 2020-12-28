@@ -62,7 +62,7 @@ namespace TicTacToe
                                 continue;
                             }
                         }
-                        RandArrays.PrintTic(userfield, 5, userfield.GetLength(0) - 7, X_ColorMain, O_ColorMain);
+                        Printer.PrintTicField(userfield, 5, userfield.GetLength(0) - 7, X_ColorMain, O_ColorMain);
                         win = WinCheck(userfield,x,y,currentSymbolCode);
                         player = !player;
                     }
