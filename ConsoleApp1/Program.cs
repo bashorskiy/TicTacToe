@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToe
 {
-    class Settings
+    internal class Settings
     {
         public static ConsoleColor ColorSet(ConsoleColor[] colors, ConsoleColor currentcolor)
         {
@@ -31,16 +32,58 @@ namespace TicTacToe
               return newcolor;
         }
 
+        public static uint Size(uint defSize)
+        {
+            bool setSize = true;
+            while (setSize)
+            {            
+                Console.WriteLine("\n1.Изменить размер поля" + $"\t \t\t(сейчас размер поля {defSize-2}х{defSize-2})" );
+                Console.WriteLine("2.Выйти в главное меню ");
+                string settingsPoint = Console.ReadLine();
+                if (settingsPoint == "1")
+                {
+                    Console.WriteLine("\n\nВведите новый размер поля(одно целое число): \t ");
+                    bool correctSize = uint.TryParse(Console.ReadLine(), out uint newsize);
+                    if (correctSize&newsize>=5)
 
-       
+                    {
+                        defSize = newsize+2;
+                        setSize = false;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Такой размер, к сожалению, недопустим\n");
+                        Console.ResetColor();
+                    }
+                }
+                if (settingsPoint =="2")
+                {
+                    setSize = false;
+                }
+            }
+            return defSize;
+        }
+
+        public static void Menu(uint defaultSize, ConsoleColor X_currentForeground, ConsoleColor O_currentForeground)
+        {
+            Console.Write("Что хотите выбрать? \n" +
+                                          $"1. Размер поля (сейчас {defaultSize - 2}х{defaultSize - 2})\n");
+            Console.Write($"2. Цвет крестиков (сейчас {Console.ForegroundColor = X_currentForeground})\n");
+            Console.ResetColor();
+            Console.Write($"3. Цвет ноликов (сейчас {Console.ForegroundColor = O_currentForeground})\n");
+            Console.ResetColor();
+            Console.WriteLine("4. Всё устраивает, хочу вернуться в меню");
+        }
     }
+
     class Test
     {
         public static int[,] First(int[,] arr)
         {
-            for (int i = 5; i < 9; i++)
+            for (int i =8 ; i <12 ; i++)
             {
-                for (int j = i; j < i+1; j++)
+                for (int j = i; j < 12; j++)
                 {
                     arr[i, j] = 1;
                 }
@@ -51,102 +94,77 @@ namespace TicTacToe
 
     class Program
     {
+        
+
         static void Main()
         {
             ConsoleColor[] colors = (ConsoleColor[])ConsoleColor.GetValues(typeof(ConsoleColor));
             ConsoleColor X_currentForeground = ConsoleColor.Red;
             ConsoleColor O_currentForeground = ConsoleColor.Cyan;
-            uint defaultSize = 30;
+            uint defaultSize = 17;
             bool game = true;
-            bool settings = true;
-            while (game) 
+            bool settings;
+            bool menu = true;
+
+            while (menu)
             {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write("\t \t Добро пожаловать в Крестики-Нолики на свободном поле! \n \n" +
-                                            "1. Начать игру \n" +
-                                           $"2. Выбрать размер поля и цвет символов \t");
-            Console.Write($"\n\nСейчас: \t |Размер поля: {defaultSize}х{defaultSize}|\n\t\t |");
-            Console.Write("цвет X:  " + (Console.ForegroundColor = X_currentForeground));
-            Console.ResetColor();
-            Console.Write("| \n\t\t |");
-            Console.Write("цвет O: " + (Console.ForegroundColor = O_currentForeground));
-            Console.ResetColor();
-            Console.Write("|\n\n\n3. Выйти \n");
-            string choice = Console.ReadLine();
-                if (choice == "1")
+                Printer.PrintMenu(defaultSize, X_currentForeground, O_currentForeground);
+                bool choiceNum = short.TryParse(Console.ReadLine(), out short choice);
+                if (choice == 1 & choiceNum)
                 {
-                    Game.Play(X_currentForeground, O_currentForeground, defaultSize);
-                    game = false;
-                    break;
+                    while (game)
+                    {
+                        Game.Play(X_currentForeground, O_currentForeground, defaultSize);
+                        game = false;
+                    }
                 }
-                if (choice == "2")
-                settings = true;
+                else if (choice == 2 & choiceNum)
                 {
+                    settings = true;
                     while (settings)
                     {
-                        Console.Write("Что хотите выбрать? \n" +
-                                          $"1. Размер поля (сейчас {defaultSize}х{defaultSize})\n");
-                        Console.Write($"2. Цвет крестиков (сейчас {Console.ForegroundColor = X_currentForeground})\n");
-                        Console.ResetColor();
-                        Console.Write($"3. Цвет ноликов (сейчас {Console.ForegroundColor = O_currentForeground})\n");
-                        Console.ResetColor();
-                        Console.WriteLine("4. Всё устраивает, хочу вернуться в меню");
+                        Settings.Menu(defaultSize, X_currentForeground, O_currentForeground);
                         string point = Console.ReadLine();
 
                         if (point == "1")
                         {
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine("\t\t\t\t WARNING\n\t К сожалению, размер поля должен быть больше или равен 16, \n\t  иначе игра не запустится (надеемся поправить в релизе)");
-                            Console.ResetColor();
-                            Console.WriteLine($" \n \t \t\t(сейчас размер поля {defaultSize}х{defaultSize})\n\nВведите новый размер поля: \t ");
-                            bool correctSize = uint.TryParse(Console.ReadLine(), out uint newsize);
-                            if (correctSize & newsize >= 16)
-                            {
-                                defaultSize = newsize;
-                                
-                            }
-                            else
-                            {
-                                Console.WriteLine("Такой размер, к сожалению, недопустим");
-                                
-                            }
+                            defaultSize = Settings.Size(defaultSize);
+                            break;
                         }
                         if (point == "2")
                         {
                             X_currentForeground = Settings.ColorSet(colors, X_currentForeground);
-                            
+                            break;
                         }
                         if (point == "3")
                         {
                             O_currentForeground = Settings.ColorSet(colors, O_currentForeground);
-                           
+                            break;
                         }
                         if (point == "4")
                         {
-                            settings = false;      
+                            break;
                         }
                         else
-                        {           
-                            settings = false;
+                        {
+                            Printer.PrintError();
                         }
                     }
                 }
-                if (choice == "3")
+
+                else if (choice == 3 & choiceNum)
                 {
                     Console.WriteLine("Спасибо за игру! Пока!");
                     Console.ReadKey();
-                    game = false;
+                    menu = false;
                 }
                 else
                 {
-                    settings = false;
+                    Printer.PrintError();
                 }
-     
-                
             }
         }
     }
-
 }
 
 
