@@ -42,7 +42,7 @@ namespace TicTacToe
                 string settingsPoint = Console.ReadLine();
                 if (settingsPoint == "1")
                 {
-                    Console.WriteLine("\n\nВведите новый размер поля(одно целое число): \t ");
+                    Console.WriteLine("\n\nВведите новый размер поля(минимальное значение: 5): \t ");
                     bool correctSize = uint.TryParse(Console.ReadLine(), out uint newsize);
                     if (correctSize&newsize>=5)
 
@@ -108,6 +108,7 @@ namespace TicTacToe
 
             while (menu)
             {
+                
                 Printer.PrintMenu(defaultSize, X_currentForeground, O_currentForeground);
                 bool choiceNum = short.TryParse(Console.ReadLine(), out short choice);
                 if (choice == 1 & choiceNum)

@@ -10,6 +10,8 @@ namespace TicTacToe
         static int x, y;
         static int currentSymbolCode; // 1 = Х, 2=0, 3 = | |
         static bool player = true;
+        static bool tie;
+        static int tieCount;
 
         public static int CoordX(int[,] userfield)
         {
@@ -39,6 +41,20 @@ namespace TicTacToe
                 {
                     field[i, j] = 3;
                 }
+        }
+
+        public static bool TieCheck(uint length)
+        {
+            if (length == tieCount)
+            {
+                tie = true;
+                return tie;
+            }
+            else
+            {
+                tie = false;
+                return tie;
+            }
         }
 
         public static bool WinCheck(int[,] field, int x, int y, int symbolCode)
@@ -116,16 +132,18 @@ namespace TicTacToe
 
         public static void Play(ConsoleColor X_ColorMain, ConsoleColor O_ColorMain, uint fieldsize)
         {
+            uint tieLength = ((fieldsize - 2) * (fieldsize - 2));
             int[,] userfield = new int[fieldsize, fieldsize];
             string control = "1";
             while (control.Equals("1"))
             {
+                tie = false;
                 win = false;
                 player = true;
                 ResetArray(userfield);
                 Console.Clear();             
                 Printer.PrintTicFieldNext(userfield, X_ColorMain, O_ColorMain);
-                while (!win)
+                while (!win & !tie)
                 {
                     if (player)
                     {
@@ -160,6 +178,7 @@ namespace TicTacToe
                                 y <= (userfield.GetUpperBound(1) - 1))
                             {
                                 userfield[x, y] = currentSymbolCode;
+                                tieCount++;
                                 break;
                             }
                             else
@@ -174,20 +193,30 @@ namespace TicTacToe
                         }
                     }
                     Printer.PrintTicFieldNext(userfield, X_ColorMain, O_ColorMain);
+                    tie = TieCheck(tieLength);
                     win = WinCheck(userfield, x, y, currentSymbolCode);
                     player = !player;
                 }
-                if (!player)
+                if (tie)
                 {
-                    Console.ForegroundColor = X_ColorMain;
-                    Console.WriteLine("Первый игрок победил!");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("\t\t\tНичья!");
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.ForegroundColor = O_ColorMain;
-                    Console.WriteLine("Второй игрок победил!");
-                    Console.ResetColor();
+                    if (!player)
+                    {
+                        Console.ForegroundColor = X_ColorMain;
+                        Console.WriteLine("Первый игрок победил!");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = O_ColorMain;
+                        Console.WriteLine("Второй игрок победил!");
+                        Console.ResetColor();
+                    }
                 }
                 Console.WriteLine("Сыграете ещё раз или выйдете в меню?\n\r 1. Сыграть ещё раз \n 2. Выйти в меню");
                 control = Console.ReadLine();
