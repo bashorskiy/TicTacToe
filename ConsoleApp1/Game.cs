@@ -124,7 +124,7 @@ namespace TicTacToe
                 player = true;
                 ResetArray(userfield);
                 Console.Clear();
-                //Test.First(userfield) был нужен для теста алгоритма проверки победы
+               //Test.First(userfield); //был нужен для теста алгоритма проверки победы
                 Printer.PrintTicFieldNext(userfield, X_ColorMain, O_ColorMain);
                 while (!win)
                 {
