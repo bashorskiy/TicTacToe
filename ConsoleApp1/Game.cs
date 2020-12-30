@@ -129,12 +129,21 @@ namespace TicTacToe
                 {
                     if (player)
                     {
-                        Console.WriteLine("Ходит первый игрок!");
+
+                        Console.Write("Ходит ");
+                        Console.ForegroundColor = X_ColorMain;
+                        Console.Write("первый ");
+                        Console.ResetColor();
+                        Console.WriteLine("игрок!");
                         currentSymbolCode = 1;
                     }
                     else
                     {
-                        Console.WriteLine("Ходит второй игрок!");
+                        Console.Write("Ходит ");
+                        Console.ForegroundColor = O_ColorMain;
+                        Console.Write("второй ");
+                        Console.ResetColor();
+                        Console.WriteLine("игрок!");
                         currentSymbolCode = 2;
                     }
                     while (true)
