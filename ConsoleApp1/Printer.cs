@@ -57,10 +57,6 @@ namespace TicTacToe
                         Console.Write($"{j} |");
                         Console.ResetColor();
                     }
-                    //if ((i < minField) | (j < minField) | i > maxField | j > maxField)
-                    //{
-                    //    Console.Write("-|");
-                    //}
                     else if (arr[i, j] == 1) // вывод красных крестиков
                     {
                         Console.ForegroundColor = X_Color;

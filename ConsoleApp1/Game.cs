@@ -141,7 +141,7 @@ namespace TicTacToe
                 win = false;
                 player = true;
                 ResetArray(userfield);
-                Console.Clear();             
+                Console.Clear();
                 Printer.PrintTicFieldNext(userfield, X_ColorMain, O_ColorMain);
                 while (!win & !tie)
                 {

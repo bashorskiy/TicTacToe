@@ -14,7 +14,7 @@ namespace TicTacToe
             Console.WriteLine($"Сейчас цвет этого символа: {Console.ForegroundColor = currentcolor}");
             Console.ResetColor();
             Console.WriteLine("Вот список всех доступных цветов:");
-            
+
             for (int m = 0; m < colors.Length; m++)
             {
                 if (colors[m] == currentcolor)
@@ -25,29 +25,29 @@ namespace TicTacToe
                 }
                 else
                     Console.WriteLine($"Нажмите [{m}], чтобы выбрать {Console.ForegroundColor = colors[m]}\n");
-                    Console.ResetColor();
+                Console.ResetColor();
             }
             int numb = int.Parse(Console.ReadLine());
             ConsoleColor newcolor = colors[numb];
-              return newcolor;
+            return newcolor;
         }
 
         public static uint Size(uint defSize)
         {
             bool setSize = true;
             while (setSize)
-            {            
-                Console.WriteLine("\n1.Изменить размер поля" + $"\t \t\t(сейчас размер поля {defSize-2}х{defSize-2})" );
+            {
+                Console.WriteLine("\n1.Изменить размер поля" + $"\t \t\t(сейчас размер поля {defSize - 2}х{defSize - 2})");
                 Console.WriteLine("2.Выйти в главное меню ");
                 string settingsPoint = Console.ReadLine();
                 if (settingsPoint == "1")
                 {
                     Console.WriteLine("\n\nВведите новый размер поля(минимальное значение: 5): \t ");
                     bool correctSize = uint.TryParse(Console.ReadLine(), out uint newsize);
-                    if (correctSize&newsize>=5)
+                    if (correctSize & newsize >= 5)
 
                     {
-                        defSize = newsize+2;
+                        defSize = newsize + 2;
                         setSize = false;
                     }
                     else
@@ -57,7 +57,7 @@ namespace TicTacToe
                         Console.ResetColor();
                     }
                 }
-                if (settingsPoint =="2")
+                if (settingsPoint == "2")
                 {
                     setSize = false;
                 }
@@ -81,7 +81,7 @@ namespace TicTacToe
     {
         public static int[,] First(int[,] arr)
         {
-            for (int i =8 ; i <12 ; i++)
+            for (int i = 8; i < 12; i++)
             {
                 for (int j = i; j < 12; j++)
                 {
@@ -94,7 +94,7 @@ namespace TicTacToe
 
     class Program
     {
-        
+
 
         static void Main()
         {
@@ -108,7 +108,7 @@ namespace TicTacToe
 
             while (menu)
             {
-                
+
                 Printer.PrintMenu(defaultSize, X_currentForeground, O_currentForeground);
                 bool choiceNum = short.TryParse(Console.ReadLine(), out short choice);
                 if (choice == 1 & choiceNum)
